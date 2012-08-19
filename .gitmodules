@@ -7,3 +7,6 @@
 [submodule "plugins/text-map"]
 	path = plugins/text-map
 	url = git://github.com/jonocodes/GeditTextmap.git
+[submodule "plugins/source-code-browser"]
+	path = plugins/source-code-browser
+	url = git://github.com/Quixotix/gedit-source-code-browser.git

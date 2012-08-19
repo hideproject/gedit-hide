@@ -5,6 +5,7 @@ Plugins
 *******
 - Control Your Tabs (https://github.com/jefferyto/gedit-control-your-tabs)
 - Tabs Extend (https://github.com/nuxlli/gedit-tabsextend)
+- Text Map (https://github.com/jonocodes/GeditTextmap)
 
 
 Themes
@@ -19,7 +20,9 @@ Lang specs
 
 How Install?
 ************
-Run `install/install.sh`
+<del>Run `install/install.sh`</del>
+
+Copy plugins to ~/.local/share/gedit/plugins/ directory & restart gedit. Activate the plugins.
 
 
 

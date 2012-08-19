@@ -1,0 +1,3 @@
+[submodule "plugins/control-your-tabs"]
+	path = plugins/control-your-tabs
+	url = git://github.com/jefferyto/gedit-control-your-tabs.git

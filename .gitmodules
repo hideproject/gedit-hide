@@ -1,3 +1,6 @@
 [submodule "plugins/control-your-tabs"]
 	path = plugins/control-your-tabs
 	url = git://github.com/jefferyto/gedit-control-your-tabs.git
+[submodule "plugins/tabs-extend"]
+	path = plugins/tabs-extend
+	url = git://github.com/nuxlli/gedit-tabsextend.git

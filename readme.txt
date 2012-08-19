@@ -6,6 +6,7 @@ Plugins
 - Control Your Tabs (https://github.com/jefferyto/gedit-control-your-tabs)
 - Tabs Extend (https://github.com/nuxlli/gedit-tabsextend)
 - Text Map (https://github.com/jonocodes/GeditTextmap)
+- gedit-source-code-browser (https://github.com/Quixotix/gedit-source-code-browser)
 
 
 Themes

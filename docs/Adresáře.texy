@@ -1,0 +1,10 @@
+Adresáře
+########
+
+Primárně ukládáme pluginy do domovské složky ($HOME). Konkrétně do techto
+adresářů:
+
+* Pluginy: ~/.local/share/gedit/plugins/	(http://askubuntu.com/questions/61785/how-do-i-install-a-plugin-for-gedit-v3)
+* Styly (themes): ~/.local/share/gtksourceview-3.0/styles/	(https://live.gnome.org/GtkSourceView/StyleSchemes)
+* LangSpecs: ~/.local/share/gtksourceview-3.0/language-specs	(https://live.gnome.org/Gedit/NewLanguage)
+* MimeTypes: ~/.local/share/mime	(https://live.gnome.org/Gedit/NewLanguage)

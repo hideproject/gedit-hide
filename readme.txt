@@ -25,6 +25,8 @@ How Install?
 
 Copy plugins to ~/.local/share/gedit/plugins/ directory & restart gedit. Activate the plugins.
 
+Copy styles to ~/.local/share/gtksourceview-3.0/styles & restart gedit. Activate the style.
+
 
 
 Visit http://janpecha.iunas.cz/hide/

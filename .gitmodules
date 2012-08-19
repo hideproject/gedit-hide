@@ -4,3 +4,6 @@
 [submodule "plugins/tabs-extend"]
 	path = plugins/tabs-extend
 	url = git://github.com/nuxlli/gedit-tabsextend.git
+[submodule "plugins/text-map"]
+	path = plugins/text-map
+	url = git://github.com/jonocodes/GeditTextmap.git

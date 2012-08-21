@@ -8,3 +8,11 @@ adresářů:
 * Styly (themes): ~/.local/share/gtksourceview-3.0/styles/	(https://live.gnome.org/GtkSourceView/StyleSchemes)
 * LangSpecs: ~/.local/share/gtksourceview-3.0/language-specs	(https://live.gnome.org/Gedit/NewLanguage)
 * MimeTypes: ~/.local/share/mime	(https://live.gnome.org/Gedit/NewLanguage)
+
+* Snippets/External Tools:
+	- join(GLib.get_user_config_dir(), 'gedit/snippets')
+	=> ~/.config/gedit/snippets
+	- viz soubor snippets/appactivatable.py a http://developer.gnome.org/pygobject/stable/glib-functions.html#function-glib--get-user-config-dir
+	
+	for External Tools:
+	=> ~/.config/gedit/snippets

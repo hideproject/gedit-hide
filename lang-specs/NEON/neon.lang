@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language id="neon" _name="NEON Config" version="2.0" _section="Others">
+	<metadata>
+		<property name="mimetypes">text/x-neon-config;</property>
+		<property name="globs">*.neon</property>
+	</metadata>
+	
+	
+	<styles>
+		<style id="comment" _name="Comment" map-to="def:comment"/>
+		<style id="escaped-character" _name="Escaped Character" map-to="def:special-char"/>
+		<style id="string" _name="String" map-to="def:string"/>
+		<style id="string-simple-quote" _name="String" map-to="def:string"/>
+		<style id="keyword" _name="Keyword" map-to="def:keyword"/>
+		<!-- numbers -->
+		<!-- value -->
+		<!-- entity -->
+		<!-- variables -->
+		<!-- key (command) -->
+	</styles>
+	
+	
+	<default-regex-options case-sensitive="false"/>
+	
+	
+	<definitions>
+		<context id="neon">
+			<include>
+				<context id="comment" style-ref="comment">
+					<start>#</start>
+					<end>$</end>
+				</context>
+				
+				<context id="string" end-at-line-end="true" style-ref="string">
+					<start>"</start>
+					<end>"</end>
+					<include>
+						<context id="escaped-character" style-ref="escaped-character">
+							<match>\\.</match>
+						</context>
+					</include>
+				</context>
+				
+				<context id="string-simple-quote" end-at-line-end="true" style-ref="string-simple-quote">
+					<start>'</start>
+					<end>'</end>
+				</context>
+				
+				<context id="keywords" style-ref="keyword">
+					<keyword>yes</keyword>
+					<keyword>no</keyword>
+					<keyword>on</keyword>
+					<keyword>off</keyword>
+					<keyword>null</keyword>
+					<keyword>true</keyword>
+					<keyword>false</keyword>
+				</context>
+			</include>
+		</context>
+	</definitions>
+</language>

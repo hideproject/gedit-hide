@@ -18,6 +18,7 @@
 	<style foreground="#e5786d" name="def:preprocessor"/>
 	<style foreground="#e5786d" name="def:number"/>
 	<style foreground="#e7f6da" name="def:specials"/>
+	<style foreground="#e7f6da" name="def:special-char"/>
 	<style foreground="#f8f8f8" background="#3c4043" name="selection"/>
 </style-scheme>
 

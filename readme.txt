@@ -29,6 +29,7 @@ Copy plugins to ~/.local/share/gedit/plugins/ directory & restart gedit. Activat
 
 Copy styles to ~/.local/share/gtksourceview-3.0/styles & restart gedit. Activate the style.
 
+Copy lang specs to ~/.local/share/gtksourceview-3.0/language-specs & restart gedit.
 
 
 Visit http://janpecha.iunas.cz/hide/

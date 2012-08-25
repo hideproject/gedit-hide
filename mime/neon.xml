@@ -1,0 +1,8 @@
+<mime-info xmlns='http://www.freedesktop.org/standards/shared-mime-info'>
+  <mime-type type="text/x-neon-config">
+    <comment>NEON (Nette Object Notation) Config File</comment>
+    <!-- more translated comment elements -->
+    <sub-class-of type="text/plain"/>
+    <glob pattern="*.neon"/>
+  </mime-type>
+</mime-info>

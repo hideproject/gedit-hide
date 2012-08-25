@@ -12,18 +12,23 @@
 		<style id="string" _name="String" map-to="def:string"/>
 		<style id="string-simple-quote" _name="String" map-to="def:string"/>
 		<style id="keyword" _name="Keyword" map-to="def:keyword"/>
+		<style id="key" _name="Key" map-to="def:identifier"/>
+		<style id="value" _name="Value" map-to="def:constant"/>
 		<!-- numbers -->
 		<!-- value -->
 		<!-- entity -->
 		<!-- variables -->
 		<!-- key (command) -->
+		<!-- Datetime-->
 	</styles>
 	
 	
-	<default-regex-options case-sensitive="false"/>
+	<!--<default-regex-options case-sensitive="false"/>-->
 	
 	
 	<definitions>
+		<define-regex id="neonlit">[^#"\',=[\]{}()\x00-\x20!`](?:[^#,:=\]})(\x00-\x1F]+|:(?![\s,\]})]|$)|(?&lt;!\s)#)*(?&lt;!\s)</define-regex>
+		
 		<context id="neon">
 			<include>
 				<context id="comment" style-ref="comment">
@@ -36,7 +41,7 @@
 					<end>"</end>
 					<include>
 						<context id="escaped-character" style-ref="escaped-character">
-							<match>\\.</match>
+							<match>\\([tn"\/_]|u[0-9a-f]{4}|x[0-9a-f]{2})</match>
 						</context>
 					</include>
 				</context>
@@ -46,14 +51,22 @@
 					<end>'</end>
 				</context>
 				
+				<context id="key" style-ref="key">
+					<match>\%{neonlit}[:=]</match>
+				</context>
+				
 				<context id="keywords" style-ref="keyword">
-					<keyword>yes</keyword>
-					<keyword>no</keyword>
-					<keyword>on</keyword>
-					<keyword>off</keyword>
-					<keyword>null</keyword>
-					<keyword>true</keyword>
-					<keyword>false</keyword>
+					<keyword>yes|YES|Yes</keyword>
+					<keyword>no|NO|No</keyword>
+					<keyword>on|ON|On</keyword>
+					<keyword>off|OFF|Off</keyword>
+					<keyword>null|NULL|Null</keyword>
+					<keyword>true|TRUE|True</keyword>
+					<keyword>false|FALSE|False</keyword>
+				</context>
+				
+				<context id="value" style-ref="value">
+					<match>\%{neonlit}</match>
 				</context>
 			</include>
 		</context>

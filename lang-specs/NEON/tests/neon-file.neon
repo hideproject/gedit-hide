@@ -17,6 +17,9 @@ children:
 entity: Column(type="integer")
 string: "Hello\n \xff \t \" \/ \_ \u09af world!"
 simple-string: 'Hello\n \xff \t \" \/ \_ \u09af world!'
+
+something	:	Hello!
+
 constants:
 	TRUE constant: TRUE
 	False constant: False
@@ -25,3 +28,5 @@ constants:
 	off constant: OFF
 	Yes constant: YES
 	no constant: NO
+	No: NO
+

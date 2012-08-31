@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright © 2012 Jan Pecha (http://janpecha.iunas.cz/) All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+* Redistributions in binary form must reproduce the above copyright notice, this
+  list of conditions and the following disclaimer in the documentation and/or
+  other materials provided with the distribution.
+* Neither the name of Jan Pecha nor the names of its contributors may be used to
+  endorse or promote products derived from this software without specific prior
+  written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<language id="latte" _name="Latte Template" version="2.0" _section="Markups">
+	<metadata>
+		<property name="mimetypes">text/x-latte-template;text/plain</property>
+		<property name="globs">*.latte;*.phtml</property>
+		<property name="block-comment-start">{*</property>
+		<property name="block-comment-end">*}</property>
+	</metadata>
+	
+	
+	<styles>
+		<style id="comment" _name="Comment" map-to="def:comment"/>
+		<style id="macro" _name="Latte Macro"/>
+		<style id="macro-name" _name="Latte Macro Name" map-to="def:function"/>
+		<style id="macro-own" _name="Own Latte Macro" map-to="def:function"/>
+		<!--<style id="nattr" _name="String" map-to="def:string"/>-->
+		<!--<style id="variable" _name="String" map-to="def:string"/>-->
+	</styles>
+	
+	
+	<definitions>
+		<define-regex id="macro-start">{(?!\s)</define-regex>
+		<define-regex id="macro-end">}</define-regex>
+		<define-regex id="macro-pair-keyword">if(set|Current)?|for(each)?|while|first|last|sep|capture|cache|syntax|_|form|label|snippet|block|define</define-regex>
+		<define-regex id="macro-single-keyword">else(if(set)?)?|continueIf|breakIf|var|default|include|\?|use|l|r|contentType|status|include(block)?|layout|extends|(p)?link|control|input|dump|debugbreak</define-regex>
+
+		
+		<context id="macro-end" end-parent="true">
+			<match>}</match>
+		</context>
+		
+		<context id="macro-pair" style-ref="macro-name">
+			<start>\%{macro-start}\/?\%{macro-pair-keyword}\s*</start>
+			<include>
+				<context ref="macro-end"/>
+				<context ref="php:php-block"/>
+			</include>
+		</context>
+		
+		<context id="macro-single" style-ref="macro-name">
+			<start>\%{macro-single-keyword}\s*</start>
+			<include>
+				<context ref="php:php-block"/>
+			</include>
+		</context>
+		
+<!--		<context id="macro-special" style-ref="def:identifier">
+			<start>/?[#][a-Z][a-Z0-9]*\s*</start>
+			<include>
+				<context ref="php:php-block"/>
+			</include>
+		</context>-->
+		
+		<context id="macro-expr" style-ref="macro-name">
+			<start>[!]?[_=]?\s*</start>
+			<include>
+				<context ref="php:php-block"/>
+			</include>
+		</context>
+		
+<!--		<context id="macro-own" style-ref="macro-own">
+			<start>/?[a-Z][a-Z_0-9]*\s*</start>
+			<include>
+				<context ref="php:php-block"/>
+			</include>
+		</context>-->
+		
+
+		
+<!--		<context id="macro-pair-keyword">
+			<keyword>if</keyword>
+			<keyword>ifset</keyword>
+			<keyword>ifCurrent</keyword>
+			<keyword>foreach</keyword>
+			<keyword>for</keyword>
+			<keyword>while</keyword>
+			<keyword>first</keyword>
+			<keyword>last</keyword>
+			<keyword>sep</keyword>
+			<keyword>capture</keyword>
+			<keyword>cache</keyword>
+			<keyword>syntax</keyword>
+			<keyword>_</keyword>
+			<keyword>form</keyword>
+			<keyword>label</keyword>
+			<keyword>snippet</keyword>
+			<keyword>block</keyword>
+			<keyword>define</keyword>
+		</context>
+-->
+
+<!--		<context id="macro-single-keyword">
+			<keyword>else</keyword>
+			<keyword>elseif</keyword>
+			<keyword>elseifset</keyword>
+			<keyword>continueIf</keyword>
+			<keyword>breakIf</keyword>
+			<keyword>var</keyword>
+			<keyword>default</keyword>
+			<keyword>include</keyword>
+			<keyword>?</keyword>
+			<keyword>use</keyword>
+			<keyword>l</keyword>
+			<keyword>r</keyword>
+			<keyword>contentType</keyword>
+			<keyword>status</keyword>
+			<keyword>include</keyword>
+			<keyword>includeblock</keyword>
+			<keyword>layout</keyword>
+			<keyword>extends</keyword>
+			<keyword>link</keyword>
+			<keyword>plink</keyword>
+			<keyword>control</keyword>
+			<keyword>input</keyword>
+			<keyword>dump</keyword>
+			<keyword>debugbreak</keyword>
+		</context>
+	-->
+		
+		<context id="latte">
+			<include>
+				<context ref="html:html"/>
+				<context id="comment-multiline" style-ref="comment">
+					<start>\{\*</start>
+					<end>\*\}</end>
+				</context>
+				
+				<!--<context id="latte-macro" style-ref="macro">-->
+					<!--<start>\{(?!\s)</start>
+					<end>}</end>-->
+					<!--<include>
+						<context ref="macro-pair"/>
+					</include>-->
+				<!--</context>-->
+				<!--
+				<context id="latte-macro" style-ref="macro">
+					<start>[{](^\s)</start>
+					<end>\}</end>
+					<include>
+						<context ref="macro-pair"/>
+						<context ref="macro-single"/>
+						<context rel="macro-special"/>
+						<context rel="macro-own"/>
+						<context rel="macro-expr"/>
+					</include>
+				</context>-->
+				<!-- context ref="html:html" /-->
+				<context id="mymacro" style-ref="macro">
+					<start>{(?!\s)</start>
+					<end>}</end>
+					<include>
+						<context id="mymacroid" style-ref="macro-name">
+							<keyword>foreach</keyword>
+						</context>
+						
+						<context ref="php:variable"/>
+					</include>
+				</context>
+				
+				
+				<!--<context ref="php:php-block" />-->
+				<!--<context ref="html:script" />-->
+			</include>
+		</context>
+	</definitions>
+</language>

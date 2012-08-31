@@ -1,0 +1,26 @@
+{* This is a Latte Template
+ * @author    Jan Pecha, 2012
+ *}
+
+<ul n:if="$items">
+{else}
+{if}
+{foreach $items as $item}
+    <li id="item-{$iterator->counter}{* Hello! *}<?php echo 'hello'; ?>" n:href="Homepage:">{$item|capitalize}</li>
+{/foreach}
+{= ahoj}
+{? ahoj}
+{!= ahoj}
+{!? ahoj}
+{!$ahoj}
+{_}{/_}
+{!_ Ahoj}
+{! 'ahoj'}
+{mySuperMacro}{/mySuperMacro}
+
+{#myblock}
+
+{/#}
+
+</ul>
+{ if $a == 10}

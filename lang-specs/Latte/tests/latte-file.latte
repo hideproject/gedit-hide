@@ -6,7 +6,7 @@
 {else}
 {if}
 {foreach $items as $item}
-    <li id="item-{$iterator->counter}{* Hello! *}<?php echo 'hello'; ?>" n:href="Homepage:">{$item|capitalize}</li>
+    <li id="item-{$iterator->counter}{* Hello! *}<?php echo 'hello'; ?>" n:tag-href="Homepage: $hello">{$item|capitalize}</li>
 {/foreach}
 {= ahoj}
 {? ahoj}

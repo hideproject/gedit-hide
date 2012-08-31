@@ -47,7 +47,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		<define-regex id="macro-single-keyword">else|elseif|elseifset|continueIf|breakIf|var|default|include|use|l|r|contentType|status|include|includeblock|layout|extends|plink|link|control|input|dump|debugbreak</define-regex>
 		<define-regex id="macro-expr">[!]?[_=?]?\s*</define-regex> <!-- {?}, {!?}, {=}, {_} -->
 		<define-regex id="macro-special">\#([a-zA-Z_][a-zA-Z0-9_]*|)</define-regex> <!-- {#blockname} -->
-		<define-regex id="macro-own">[a-zA-Z][a-zA-Z0-9]*</define-regex><!--  -->
+		<define-regex id="macro-own">[a-zA-Z][a-zA-Z0-9]*</define-regex>
+		<define-regex id="macro-n">class|attr|href</define-regex>
 		
 		<context id="latte">
 			<include>
@@ -92,10 +93,50 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 					</include>
 				</context>
 				
+				<context ref="n-macro-tag"/>
 				<context ref="html:html"/>
 				<context ref="php:php-block"/>
 				<context ref="html:script"/>
 			</include>
+		</context>
+		
+<!--		<context id="n-macro" class="no-spell-check">-->
+<!--			<start>&lt;\s*/?\s*[a-z0-9_-]+.*\sn:(inner-|tag-|)(\%{macro-pair-keyword}|\%{macro-own}|\%{macro-n})=(")</start>-->
+<!--			<end>"</end>-->
+<!--			<include>-->
+<!--				<context sub-pattern="1" where="start" style-ref="macro-name"/>-->
+<!--				<context sub-pattern="2" where="start" style-ref="macro-name"/>-->
+<!--				<context sub-pattern="3" where="start" style-ref="html:attrib-value"/>-->
+<!--				<context sub-pattern="0" where="end" style-ref="html:attrib-value"/>-->
+<!--				<context ref="php:variable"/>-->
+<!--				<context ref="html:generic-tag"/>-->
+<!--			</include>-->
+<!--		</context>-->
+		<context id="n-macro" class="no-spell-check">
+			<start>(n:)(inner-|tag-|)(\%{macro-pair-keyword}|\%{macro-own}|\%{macro-n})=(\")</start>
+			<end>\"</end>
+			<include>
+				<context sub-pattern="1" where="start" style-ref="html:attrib-name"/>
+				<context sub-pattern="2" where="start" style-ref="macro-bracket"/>
+				<context sub-pattern="3" where="start" style-ref="macro-name"/>
+				<context sub-pattern="4" where="start" style-ref="html:attrib-value"/>
+				<context sub-pattern="0" where="end" style-ref="html:attrib-value"/>
+				<context ref="php:variable"/>
+			</include>
+		</context>
+		
+		<context id="n-macro-tag">
+			<start>&lt;\s*/?\s*[a-z0-9_-]+</start>
+            <end>/?\s*&gt;</end>
+            <include>
+                <context sub-pattern="0" where="start" style-ref="html:tag"/>
+                <context sub-pattern="0" where="end" style-ref="html:tag"/>
+                <context ref="n-macro"/>
+                <context ref="html:attrib-quoted"/>
+                <context ref="html:attrib-unquoted"/>
+                <context ref="html:attrib-no-value"/>
+                <context ref="html:embedded-lang-hook"/>
+            </include>
 		</context>
 		
 		<replace id="html:embedded-lang-hook" ref="latte"/>

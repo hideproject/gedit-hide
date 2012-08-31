@@ -100,28 +100,34 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 			</include>
 		</context>
 		
-<!--		<context id="n-macro" class="no-spell-check">-->
-<!--			<start>&lt;\s*/?\s*[a-z0-9_-]+.*\sn:(inner-|tag-|)(\%{macro-pair-keyword}|\%{macro-own}|\%{macro-n})=(")</start>-->
-<!--			<end>"</end>-->
-<!--			<include>-->
-<!--				<context sub-pattern="1" where="start" style-ref="macro-name"/>-->
-<!--				<context sub-pattern="2" where="start" style-ref="macro-name"/>-->
-<!--				<context sub-pattern="3" where="start" style-ref="html:attrib-value"/>-->
-<!--				<context sub-pattern="0" where="end" style-ref="html:attrib-value"/>-->
-<!--				<context ref="php:variable"/>-->
-<!--				<context ref="html:generic-tag"/>-->
-<!--			</include>-->
-<!--		</context>-->
+		<!-- N:Macros -->
 		<context id="n-macro" class="no-spell-check">
-			<start>(n:)(inner-|tag-|)(\%{macro-pair-keyword}|\%{macro-own}|\%{macro-n})=(\")</start>
+			<start>(n:)(inner-|tag-|)((\%{macro-pair-keyword}|\%{macro-n})|(\%{macro-own}))=(\")</start>
 			<end>\"</end>
 			<include>
-				<context sub-pattern="1" where="start" style-ref="html:attrib-name"/>
-				<context sub-pattern="2" where="start" style-ref="macro-bracket"/>
-				<context sub-pattern="3" where="start" style-ref="macro-name"/>
-				<context sub-pattern="4" where="start" style-ref="html:attrib-value"/>
+				<context sub-pattern="1" where="start" style-ref="html:attrib-name"/> <!-- n: -->
+				<context sub-pattern="2" where="start" style-ref="macro-bracket"/> <!-- inner/tag prefix -->
+				<context sub-pattern="4" where="start" style-ref="macro-name"/> <!-- Default Macro Name -->
+				<context sub-pattern="5" where="start" style-ref="macro-own"/> <!-- Own Macro -->
+				<context sub-pattern="6" where="start" style-ref="html:attrib-value"/> <!-- " -->
 				<context sub-pattern="0" where="end" style-ref="html:attrib-value"/>
+				
+				<context ref="php:cpp-line-comment"/>
+				<context ref="php:bash-line-comment"/>
+				<context ref="php:c-block-comment"/>
+				<context ref="php:single-quoted-string"/>
 				<context ref="php:variable"/>
+				<context ref="php:array-operators"/>
+				<context ref="php:keywords"/>
+				<context ref="php:operators"/>
+				<context ref="php:type"/>
+				<context ref="php:null-value"/>
+				<context ref="php:boolean"/>
+				<context ref="php:float"/>
+				<context ref="php:decimal-number"/>
+				<context ref="php:octal-number"/>
+				<context ref="php:hexadecimal-number"/>
+				<context ref="php:identifier"/>
 			</include>
 		</context>
 		

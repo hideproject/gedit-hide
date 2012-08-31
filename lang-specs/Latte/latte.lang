@@ -35,157 +35,69 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	
 	<styles>
 		<style id="comment" _name="Comment" map-to="def:comment"/>
-		<style id="macro" _name="Latte Macro"/>
-		<style id="macro-name" _name="Latte Macro Name" map-to="def:function"/>
+		<style id="macro-bracket" _name="Latte Macro" map-to="def:operator"/>
+		<style id="macro-name" _name="Latte Macro Name" map-to="def:constant"/>
 		<style id="macro-own" _name="Own Latte Macro" map-to="def:function"/>
-		<!--<style id="nattr" _name="String" map-to="def:string"/>-->
-		<!--<style id="variable" _name="String" map-to="def:string"/>-->
+		<style id="macro-special" _name="Special Latte Macro Name" map-to="def:preprocessor"/> <!-- def:identifier -->
 	</styles>
 	
 	
 	<definitions>
-		<define-regex id="macro-start">{(?!\s)</define-regex>
-		<define-regex id="macro-end">}</define-regex>
-		<define-regex id="macro-pair-keyword">if(set|Current)?|for(each)?|while|first|last|sep|capture|cache|syntax|_|form|label|snippet|block|define</define-regex>
-		<define-regex id="macro-single-keyword">else(if(set)?)?|continueIf|breakIf|var|default|include|\?|use|l|r|contentType|status|include(block)?|layout|extends|(p)?link|control|input|dump|debugbreak</define-regex>
-
-		
-		<context id="macro-end" end-parent="true">
-			<match>}</match>
-		</context>
-		
-		<context id="macro-pair" style-ref="macro-name">
-			<start>\%{macro-start}\/?\%{macro-pair-keyword}\s*</start>
-			<include>
-				<context ref="macro-end"/>
-				<context ref="php:php-block"/>
-			</include>
-		</context>
-		
-		<context id="macro-single" style-ref="macro-name">
-			<start>\%{macro-single-keyword}\s*</start>
-			<include>
-				<context ref="php:php-block"/>
-			</include>
-		</context>
-		
-<!--		<context id="macro-special" style-ref="def:identifier">
-			<start>/?[#][a-Z][a-Z0-9]*\s*</start>
-			<include>
-				<context ref="php:php-block"/>
-			</include>
-		</context>-->
-		
-		<context id="macro-expr" style-ref="macro-name">
-			<start>[!]?[_=]?\s*</start>
-			<include>
-				<context ref="php:php-block"/>
-			</include>
-		</context>
-		
-<!--		<context id="macro-own" style-ref="macro-own">
-			<start>/?[a-Z][a-Z_0-9]*\s*</start>
-			<include>
-				<context ref="php:php-block"/>
-			</include>
-		</context>-->
-		
-
-		
-<!--		<context id="macro-pair-keyword">
-			<keyword>if</keyword>
-			<keyword>ifset</keyword>
-			<keyword>ifCurrent</keyword>
-			<keyword>foreach</keyword>
-			<keyword>for</keyword>
-			<keyword>while</keyword>
-			<keyword>first</keyword>
-			<keyword>last</keyword>
-			<keyword>sep</keyword>
-			<keyword>capture</keyword>
-			<keyword>cache</keyword>
-			<keyword>syntax</keyword>
-			<keyword>_</keyword>
-			<keyword>form</keyword>
-			<keyword>label</keyword>
-			<keyword>snippet</keyword>
-			<keyword>block</keyword>
-			<keyword>define</keyword>
-		</context>
--->
-
-<!--		<context id="macro-single-keyword">
-			<keyword>else</keyword>
-			<keyword>elseif</keyword>
-			<keyword>elseifset</keyword>
-			<keyword>continueIf</keyword>
-			<keyword>breakIf</keyword>
-			<keyword>var</keyword>
-			<keyword>default</keyword>
-			<keyword>include</keyword>
-			<keyword>?</keyword>
-			<keyword>use</keyword>
-			<keyword>l</keyword>
-			<keyword>r</keyword>
-			<keyword>contentType</keyword>
-			<keyword>status</keyword>
-			<keyword>include</keyword>
-			<keyword>includeblock</keyword>
-			<keyword>layout</keyword>
-			<keyword>extends</keyword>
-			<keyword>link</keyword>
-			<keyword>plink</keyword>
-			<keyword>control</keyword>
-			<keyword>input</keyword>
-			<keyword>dump</keyword>
-			<keyword>debugbreak</keyword>
-		</context>
-	-->
+		<define-regex id="macro-pair-keyword">if|ifset|ifCurrent|foreach|for|while|first|last|sep|capture|cache|syntax|_|form|label|snippet|block|define</define-regex>
+		<define-regex id="macro-single-keyword">else|elseif|elseifset|continueIf|breakIf|var|default|include|use|l|r|contentType|status|include|includeblock|layout|extends|plink|link|control|input|dump|debugbreak</define-regex>
+		<define-regex id="macro-expr">[!]?[_=?]?\s*</define-regex> <!-- {?}, {!?}, {=}, {_} [!]?[_=?]?\s* -->
+		<define-regex id="macro-special">\#([a-zA-Z_][a-zA-Z0-9_]*|)</define-regex> <!-- {#blockname} \/?\#([a-zA-Z_][a-zA-Z0-9_]*|) -->
+		<define-regex id="macro-own">[a-zA-Z][a-zA-Z0-9]*</define-regex><!--  -->
 		
 		<context id="latte">
 			<include>
-				<context ref="html:html"/>
 				<context id="comment-multiline" style-ref="comment">
 					<start>\{\*</start>
 					<end>\*\}</end>
 				</context>
 				
-				<!--<context id="latte-macro" style-ref="macro">-->
-					<!--<start>\{(?!\s)</start>
-					<end>}</end>-->
-					<!--<include>
-						<context ref="macro-pair"/>
-					</include>-->
-				<!--</context>-->
-				<!--
-				<context id="latte-macro" style-ref="macro">
-					<start>[{](^\s)</start>
+				<context id="macro">
+					<start>(\{(?!\s))((\%{macro-single-keyword})|((\/?)((\%{macro-pair-keyword})|(\%{macro-own})|(\%{macro-special})))|(\%{macro-expr}))</start><!--(\/?\%{macro-own})|()|--><!-- |(\%{macro-expr}) -->
 					<end>\}</end>
 					<include>
-						<context ref="macro-pair"/>
-						<context ref="macro-single"/>
-						<context rel="macro-special"/>
-						<context rel="macro-own"/>
-						<context rel="macro-expr"/>
-					</include>
-				</context>-->
-				<!-- context ref="html:html" /-->
-				<context id="mymacro" style-ref="macro">
-					<start>{(?!\s)</start>
-					<end>}</end>
-					<include>
-						<context id="mymacroid" style-ref="macro-name">
-							<keyword>foreach</keyword>
-						</context>
+						<context sub-pattern="1" where="start" style-ref="macro-bracket"/>
+						<context sub-pattern="7" where="start" style-ref="macro-name"/> <!-- Macro Pair Keyword -->
+						<context sub-pattern="5" where="start" style-ref="macro-bracket"/> <!-- {/} -->
+						<context sub-pattern="3" where="start" style-ref="macro-name"/> <!-- Macro Single Keyword -->
+						<context sub-pattern="11" where="start" style-ref="macro-bracket"/> <!-- Macro Expr -->
+						<context sub-pattern="8" where="start" style-ref="macro-bracket"/> <!-- Own Macro -->
+						<context sub-pattern="9" where="start" style-ref="macro-special"/> <!-- Special Macro -->
+						<context sub-pattern="0" where="end" style-ref="macro-bracket"/>
 						
+						<context ref="php:cpp-line-comment"/>
+						<context ref="php:bash-line-comment"/>
+						<context ref="php:c-block-comment"/>
+						<context ref="php:double-quoted-string"/>
+						<context ref="php:single-quoted-string"/>
+						<context ref="php:backtick-string"/>
+						<context ref="php:here-doc-string"/>
+						<context ref="php:now-doc-string"/>
 						<context ref="php:variable"/>
+						<context ref="php:array-operators"/>
+						<context ref="php:keywords"/>
+						<context ref="php:operators"/>
+						<context ref="php:type"/>
+						<context ref="php:null-value"/>
+						<context ref="php:boolean"/>
+						<context ref="php:float"/>
+						<context ref="php:decimal-number"/>
+						<context ref="php:octal-number"/>
+						<context ref="php:hexadecimal-number"/>
+						<context ref="php:identifier"/>
 					</include>
 				</context>
 				
-				
-				<!--<context ref="php:php-block" />-->
-				<!--<context ref="html:script" />-->
+				<context ref="html:html"/>
+				<context ref="php:php-block"/>
+				<context ref="html:script"/>
 			</include>
 		</context>
+		
+		<replace id="html:embedded-lang-hook" ref="latte"/>
 	</definitions>
 </language>

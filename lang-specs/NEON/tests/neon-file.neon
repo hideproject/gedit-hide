@@ -20,6 +20,8 @@ simple-string: 'Hello\n \xff \t \" \/ \_ \u09af world!'
 
 something	:	Hello!
 
+my = NEON
+
 constants:
 	TRUE constant: TRUE
 	False constant: False

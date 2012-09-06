@@ -36,19 +36,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		<style id="escaped-character" _name="Escaped Character" map-to="def:special-char"/>
 		<style id="string" _name="String" map-to="def:string"/>
 		<style id="string-simple-quote" _name="String" map-to="def:string"/>
-		<style id="keyword" _name="Keyword" map-to="def:keyword"/>
-		<style id="key" _name="Key" map-to="def:identifier"/>
-		<style id="value" _name="Value" map-to="def:constant"/>
-		<!-- numbers -->
-		<!-- value -->
-		<!-- entity -->
-		<!-- variables -->
-		<!-- key (command) -->
+		<style id="keyword" _name="Keyword" map-to="def:constant"/> <!-- ?? || special-constant -->
+		<style id="key-operator" _name="Key Operator" map-to="def:operator"/>
+		<style id="literal" _name="Literal" map-to="def:identifier"/>
 		<!-- Datetime-->
+		<!-- Number -->
 	</styles>
-	
-	
-	<!--<default-regex-options case-sensitive="false"/>-->
 	
 	
 	<definitions>
@@ -75,12 +68,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 					<start>'</start>
 					<end>'</end>
 				</context>
-				
-				<context id="key" style-ref="key">
-					<match>\%{neonlit}[:=]</match>
-				</context>
+
+<!--				<context id="key" style-ref="key">-->
+<!--					<match>\%{neonlit}\s*[:=]</match>-->
+<!--				</context>-->
 				
 				<context id="keywords" style-ref="keyword">
+					<suffix>\s*[:=]?</suffix>
 					<keyword>yes|YES|Yes</keyword>
 					<keyword>no|NO|No</keyword>
 					<keyword>on|ON|On</keyword>
@@ -90,9 +84,20 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 					<keyword>false|FALSE|False</keyword>
 				</context>
 				
-				<context id="value" style-ref="value">
-					<match>\%{neonlit}</match>
+				<context id="neon-lit" end-at-line-end="true" style-ref="literal">
+					<start>\%{neonlit}</start>
+					<end></end>
+					<include>
+						<context id="key-operator" style-ref="key-operator" end-parent="true">
+							<match>\s*[:=]</match>
+						</context>
+					</include>
 				</context>
+				
+				
+<!--				<context id="value" style-ref="value">-->
+<!--					<match>\%{neonlit}</match>-->
+<!--				</context>-->
 			</include>
 		</context>
 	</definitions>

@@ -43,8 +43,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	
 	
 	<definitions>
-		<define-regex id="macro-pair-keyword">if|ifset|ifCurrent|foreach|for|while|first|last|sep|capture|cache|syntax|_|form|label|snippet|block|define</define-regex>
-		<define-regex id="macro-single-keyword">else|elseif|elseifset|continueIf|breakIf|var|default|include|use|l|r|contentType|status|include|includeblock|layout|extends|plink|link|control|input|dump|debugbreak</define-regex>
+		<define-regex id="macro-pair-keyword">ifset|ifCurrent|if|foreach|for|while|first|last|sep|capture|cache|syntax|_|form|label|snippet|block|define</define-regex>
+		<define-regex id="macro-single-keyword">elseif|elseifset|else|continueIf|breakIf|var|default|include|use|contentType|status|include|includeblock|layout|extends|plink|link|control|input|dump|debugbreak|l|r</define-regex>
 		<define-regex id="macro-expr">[!]?[_=?]?\s*</define-regex> <!-- {?}, {!?}, {=}, {_} -->
 		<define-regex id="macro-special">\#([a-zA-Z_][a-zA-Z0-9_]*|)</define-regex> <!-- {#blockname} -->
 		<define-regex id="macro-own">[a-zA-Z][a-zA-Z0-9]*</define-regex>

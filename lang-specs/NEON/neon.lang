@@ -28,6 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	<metadata>
 		<property name="mimetypes">text/x-neon-config;</property>
 		<property name="globs">*.neon</property>
+		<property name="line-comment-start">#</property>
 	</metadata>
 	
 	

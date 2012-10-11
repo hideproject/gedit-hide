@@ -13,7 +13,7 @@
 	<style name="cursor" background="#656565"/>
 	<style name="text" background="#242424" foreground="#f6f3e8"/>
 	<style name="line-numbers" background="black" foreground="#857b6f"/>
-	<style name="selection" background="#3c4043" foreground="#cccccc"/>
+	<style name="selection" background="#5b6166" foreground="#f8f8f8"/>
 	<style name="bracket-match" background="#857b6f" foreground="#f6f3e8" bold="true"/>
 	<style name="search-match" background="#FFFF00" foreground="#857b6f"/>
 	

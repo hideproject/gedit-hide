@@ -58,7 +58,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 				</context>
 				
 				<context id="macro">
-					<start>(\{(?!\s))((\%{macro-single-keyword})|((\/?)((\%{macro-pair-keyword})|(\%{macro-own})|(\%{macro-special})))|(\%{macro-expr}))</start><!--(\/?\%{macro-own})|()|--><!-- |(\%{macro-expr}) -->
+					<start>(\{[^\s])((\%{macro-single-keyword})|((\/?)((\%{macro-pair-keyword})|(\%{macro-own})|(\%{macro-special})))|(\%{macro-expr}))</start><!--(\/?\%{macro-own})|()|--><!-- |(\%{macro-expr}) -->
 					<end>\}</end>
 					<include>
 						<context sub-pattern="1" where="start" style-ref="macro-bracket"/>

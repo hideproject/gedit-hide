@@ -18,8 +18,8 @@ Themes
 
 Lang specs
 ----------
-- NEON (Nette Object Notation) - Syntax details on http://ne-on.org/
-- Latte - Syntax details on http://doc.nette.org/cs/templating#toc-latte
+- NEON (Nette Object Notation) - configuration files - Syntax details on http://ne-on.org/
+- Latte - template language - Syntax details on http://doc.nette.org/cs/templating#toc-latte
 
 
 How Install?
